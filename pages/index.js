@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-
+import { initiateCheckout } from '../lib/payments.js'
 import products from '../products.json';
 
 export default function Home() {
@@ -20,12 +20,6 @@ export default function Home() {
           The best space jellyfish swag on the web!
         </p>
 
-        {/**
-          * @lesson-04-answer Exercise 4
-          * We can use the `.map` function available on arrays to loop through each
-          * product and create a new list item complete with our product info.
-          */}
-
         <ul className={styles.grid}>
           {products.map(product => {
             const { id, title, image, description, price } = product;
@@ -36,6 +30,18 @@ export default function Home() {
                   <h3>{ title }</h3>
                   <p>${ price }</p>
                   <p>{ description }</p>
+                  <p>
+                  <button className={styles.button} onClick={() => {
+                      initiateCheckout({
+                        lineItems: [
+                          {
+                            price: id,
+                            quantity: 1
+                          }
+                        ]
+                      })
+                    }}>Buy</button>
+                  </p>
                 </a>
               </li>
             )
