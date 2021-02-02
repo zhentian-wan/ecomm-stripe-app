@@ -2,6 +2,8 @@ import { FaShoppingCart } from 'react-icons/fa';
 import {useCart} from '../../hooks/use-cart';
 import styles from './Nav.module.css';
 
+import Link from 'next/link';
+
 const Nav = () => {
   
     const { subtotal, checkout} = useCart();
@@ -9,12 +11,14 @@ const Nav = () => {
   return (
     <nav className={styles.nav}>
       <p className={styles.navTitle}>
-        Space Jelly Shop
+        <Link href="/">
+            <a>Space Jelly Shop</a>
+          </Link>
       </p>
       <p className={styles.navCart}>
-        <button onClick={checkout}>
-          <FaShoppingCart /> ${subtotal}
-        </button>
+        <Link href="/cart">
+          <a><FaShoppingCart /> ${subtotal}</a>
+        </Link>
       </p>
     </nav>
   )
